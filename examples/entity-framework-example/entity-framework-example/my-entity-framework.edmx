@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="entity_framework_example_model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="c_sex">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="people">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="age" Type="int" />
+          <Property Name="id_sex" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__people__id_sex__267ABA7A">
+          <End Role="c_sex" Type="Self.c_sex" Multiplicity="1" />
+          <End Role="people" Type="Self.people" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_sex">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="people">
+              <PropertyRef Name="id_sex" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="entity_framework_example_modelStoreContainer">
+          <EntitySet Name="c_sex" EntityType="Self.c_sex" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="people" EntityType="Self.people" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__people__id_sex__267ABA7A" Association="Self.FK__people__id_sex__267ABA7A">
+            <End Role="c_sex" EntitySet="c_sex" />
+            <End Role="people" EntitySet="people" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="entity_framework_example_model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="c_sex">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="people" Relationship="Self.FK__people__id_sex__267ABA7A" FromRole="c_sex" ToRole="people" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="age" Type="Int32" />
+          <Property Name="id_sex" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="c_sex" Relationship="Self.FK__people__id_sex__267ABA7A" FromRole="people" ToRole="c_sex" />
+        </EntityType>
+        <Association Name="FK__people__id_sex__267ABA7A">
+          <End Role="c_sex" Type="Self.c_sex" Multiplicity="1" />
+          <End Role="people" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="c_sex">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="people">
+              <PropertyRef Name="id_sex" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="entity_framework_example_connection_string" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="c_sex" EntityType="Self.c_sex" />
+          <EntitySet Name="people" EntityType="Self.person" />
+          <AssociationSet Name="FK__people__id_sex__267ABA7A" Association="Self.FK__people__id_sex__267ABA7A">
+            <End Role="c_sex" EntitySet="c_sex" />
+            <End Role="people" EntitySet="people" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="entity_framework_example_modelStoreContainer" CdmEntityContainer="entity_framework_example_connection_string">
+          <EntitySetMapping Name="c_sex">
+            <EntityTypeMapping TypeName="entity_framework_example_model.c_sex">
+              <MappingFragment StoreEntitySet="c_sex">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="people">
+            <EntityTypeMapping TypeName="entity_framework_example_model.person">
+              <MappingFragment StoreEntitySet="people">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="id_sex" ColumnName="id_sex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

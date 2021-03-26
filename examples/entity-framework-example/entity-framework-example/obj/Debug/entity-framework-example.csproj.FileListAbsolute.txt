@@ -1,0 +1,12 @@
+C:\Users\lcald\Documents\n-tier-programming\examples\entity-framework-example\entity-framework-example\obj\Debug\entity-framework-example.csprojAssemblyReference.cache
+C:\Users\lcald\Documents\n-tier-programming\examples\entity-framework-example\entity-framework-example\obj\Debug\entity-framework-example.csproj.CoreCompileInputs.cache
+C:\Users\lcald\Documents\n-tier-programming\examples\entity-framework-example\entity-framework-example\bin\Debug\entity-framework-example.exe.config
+C:\Users\lcald\Documents\n-tier-programming\examples\entity-framework-example\entity-framework-example\bin\Debug\entity-framework-example.exe
+C:\Users\lcald\Documents\n-tier-programming\examples\entity-framework-example\entity-framework-example\bin\Debug\entity-framework-example.pdb
+C:\Users\lcald\Documents\n-tier-programming\examples\entity-framework-example\entity-framework-example\bin\Debug\EntityFramework.dll
+C:\Users\lcald\Documents\n-tier-programming\examples\entity-framework-example\entity-framework-example\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\lcald\Documents\n-tier-programming\examples\entity-framework-example\entity-framework-example\bin\Debug\EntityFramework.xml
+C:\Users\lcald\Documents\n-tier-programming\examples\entity-framework-example\entity-framework-example\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\lcald\Documents\n-tier-programming\examples\entity-framework-example\entity-framework-example\obj\Debug\entity-framework-example.csproj.CopyComplete
+C:\Users\lcald\Documents\n-tier-programming\examples\entity-framework-example\entity-framework-example\obj\Debug\entity-framework-example.exe
+C:\Users\lcald\Documents\n-tier-programming\examples\entity-framework-example\entity-framework-example\obj\Debug\entity-framework-example.pdb

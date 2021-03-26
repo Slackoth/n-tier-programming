@@ -1,0 +1,15 @@
+CREATE DATABASE entity_framework_example;
+
+CREATE TABLE c_sex(
+	id INTEGER PRIMARY KEY IDENTITY,
+	name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE people(
+	id INTEGER PRIMARY KEY IDENTITY,
+	name VARCHAR(50) NULL,
+	age INTEGER NULL,
+	id_sex INTEGER NOT NULL,
+	
+	FOREIGN KEY (id_sex) REFERENCES c_sex(id)
+);

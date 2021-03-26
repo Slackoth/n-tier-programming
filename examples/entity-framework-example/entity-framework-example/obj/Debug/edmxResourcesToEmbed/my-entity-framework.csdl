@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="entity_framework_example_model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="c_sex">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="people" Relationship="Self.FK__people__id_sex__267ABA7A" FromRole="c_sex" ToRole="people" />
+  </EntityType>
+  <EntityType Name="person">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="age" Type="Int32" />
+    <Property Name="id_sex" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="c_sex" Relationship="Self.FK__people__id_sex__267ABA7A" FromRole="people" ToRole="c_sex" />
+  </EntityType>
+  <Association Name="FK__people__id_sex__267ABA7A">
+    <End Role="c_sex" Type="Self.c_sex" Multiplicity="1" />
+    <End Role="people" Type="Self.person" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="c_sex">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="people">
+        <PropertyRef Name="id_sex" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="entity_framework_example_connection_string" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="c_sex" EntityType="Self.c_sex" />
+    <EntitySet Name="people" EntityType="Self.person" />
+    <AssociationSet Name="FK__people__id_sex__267ABA7A" Association="Self.FK__people__id_sex__267ABA7A">
+      <End Role="c_sex" EntitySet="c_sex" />
+      <End Role="people" EntitySet="people" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
