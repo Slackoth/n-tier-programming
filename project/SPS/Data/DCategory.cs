@@ -4,7 +4,7 @@ using System.Data;
 using Entities;
 using System.Runtime.CompilerServices;
 
-//[assembly: InternalsVisibleTo("Business")]
+[assembly: InternalsVisibleTo("Business")]
 
 namespace Data
 {

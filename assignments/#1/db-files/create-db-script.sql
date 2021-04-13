@@ -2,16 +2,16 @@ CREATE TABLE person_role(
 	id INTEGER PRIMARY KEY IDENTITY,
 	pr_name VARCHAR(50) NOT NULL,
 	pr_description VARCHAR(255) NULL,
-	pr_state BIT DEFAULT(1)
+	pr_state BIT NOT NULL DEFAULT(1)
 );
 
 CREATE TABLE person(
 	id INTEGER PRIMARY KEY IDENTITY,
-	p_name VARCHAR(100) NOT NULL UNIQUE,
-	lastname VARCHAR(100) NOT NULL UNIQUE,
+	p_name VARCHAR(100) NOT NULL,
+	lastname VARCHAR(100) NOT NULL,
 	age INTEGER NOT NULL,
 	phone VARCHAR(20) NULL,
-	id_rol INTEGER NOT NULL,
+	id_role INTEGER NOT NULL DEFAULT(2),
 
-	FOREIGN KEY (id_rol) REFERENCES person_role(id)
+	FOREIGN KEY (id_role) REFERENCES person_role(id)
 );
