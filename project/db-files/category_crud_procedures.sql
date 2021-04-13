@@ -45,3 +45,15 @@ CREATE PROC deactivate_category
 UPDATE category SET c_state = 0
 GO;
 
+--Exists category procedure
+CREATE PROC category_exists
+@value VARCHAR(100), @exists BIT OUTPUT AS
+IF EXISTS(SELECT c_name FROM category WHERE c_name = LTRIM(RTRIM(@value)))
+BEGIN
+SET @exists = 1
+END
+ELSE
+BEGIN
+SET @exists = 0
+END
+GO;
