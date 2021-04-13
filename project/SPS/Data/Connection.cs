@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace Data
 {
-    class Connection
+    internal class Connection
     {
         private string dbName;
         private string serverName;

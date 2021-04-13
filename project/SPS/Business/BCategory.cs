@@ -4,7 +4,7 @@ using Entities;
 
 namespace Business
 {
-    class BCategory
+    public class BCategory
     {
         public static DataTable List()
         {

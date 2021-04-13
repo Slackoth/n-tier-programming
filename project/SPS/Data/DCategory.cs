@@ -2,13 +2,10 @@
 using System.Data.SqlClient;
 using System.Data;
 using Entities;
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("Business")]
 
 namespace Data
 {
-    class DCategory
+    public class DCategory
     {
         public DataTable List()
         {
