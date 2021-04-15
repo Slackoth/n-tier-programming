@@ -109,6 +109,7 @@ namespace View
             0,
             0});
             this.nupAge.Name = "nupAge";
+            this.nupAge.ReadOnly = true;
             this.nupAge.Size = new System.Drawing.Size(180, 30);
             this.nupAge.TabIndex = 7;
             this.nupAge.Value = new decimal(new int[] {
