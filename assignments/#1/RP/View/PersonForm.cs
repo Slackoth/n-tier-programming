@@ -28,6 +28,8 @@ namespace View
             BPerson business = new();
 
             business.Insert(name, lastname, age, phone);
+            
+            // Once inserted, the data source needs to be refreshed.
             RefreshDgvPerson();
         }
 

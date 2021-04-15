@@ -11,6 +11,7 @@ namespace Business
 {
     public class BPerson
     {
+        // Listing controller
         public DataTable List()
         {
             DPerson data = new();
@@ -18,10 +19,11 @@ namespace Business
             return data.List();
         }
 
+        // Insertion controller
         public string Insert(string name, string lastname, int age, string phone)
         {
             DPerson data = new();
-            Person person = new Person()
+            Person person = new()
             {
                 Name = name,
                 Lastname = lastname,

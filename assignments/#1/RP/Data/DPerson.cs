@@ -7,11 +7,13 @@ namespace Data
 {
     public class DPerson
     {
+        // Gets all records
         public DataTable List()
         {
             SqlDataReader response;
             DataTable table = new();
             SqlConnection connection = new();
+
             try
             {
                 connection = Connection.GetInstance().CreateConnection();
@@ -36,10 +38,13 @@ namespace Data
             }
         }
 
+        // Inserts one record
         public string Insert(Person person)
         {
             string response = "";
             SqlConnection connection = new();
+            
+            // Parameters for SQL procedure 
             SqlParameter[] parameters =
             {
                 new SqlParameter()
