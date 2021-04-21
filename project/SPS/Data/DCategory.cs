@@ -90,7 +90,7 @@ namespace Data
 
                 connection.Open();
 
-                response = command.ExecuteNonQuery() == 1 ? "Record inserted" : "Record not inserted.";
+                response = command.ExecuteNonQuery() == 1 ? "Ok" : "Refuse";
             }
             catch (Exception e)
             {
