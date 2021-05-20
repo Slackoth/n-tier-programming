@@ -90,7 +90,7 @@ namespace Data
 
                 connection.Open();
 
-                response = command.ExecuteNonQuery() == 1 ? "Ok" : "Refuse";
+                response = command.ExecuteNonQuery() == 1 ? "Ok" : "Fail";
             }
             catch (Exception e)
             {
@@ -130,7 +130,7 @@ namespace Data
 
                 connection.Open();
 
-                response = command.ExecuteNonQuery() == 1 ? "Record updated" : "Record not updated.";
+                response = command.ExecuteNonQuery() == 1 ? "Ok" : "Fail";
             }
             catch (Exception e)
             {
@@ -160,7 +160,7 @@ namespace Data
 
                 connection.Open();
 
-                response = command.ExecuteNonQuery() == 1 ? "Record deleted" : "Record not deleted.";
+                response = command.ExecuteNonQuery() == 1 ? "Ok" : "Fail";
             }
             catch (Exception e)
             {
@@ -189,7 +189,7 @@ namespace Data
 
                 connection.Open();
 
-                response = command.ExecuteNonQuery() == 1 ? "Record activated" : "Record not activated.";
+                response = command.ExecuteNonQuery() == 1 ? "Ok" : "Fail";
             }
             catch (Exception e)
             {
@@ -218,7 +218,7 @@ namespace Data
 
                 connection.Open();
 
-                response = command.ExecuteNonQuery() == 1 ? "Record deactivated" : "Record not deactivated.";
+                response = command.ExecuteNonQuery() == 1 ? "Ok" : "Fail";
             }
             catch (Exception e)
             {

@@ -39,22 +39,33 @@ namespace Business
             }
         }
 
-        public static string Update(string name, string description)
+        public static string Update(int id, string prevName, string name, string description)
         {
             DCategory data = new DCategory();
-            string exists = DCategory.Exists(name);
-
-            if (!exists.Equals("1"))
-                return "Category does not exists.";
-            else
+            Category obj = new Category();
+            
+            if(prevName.Equals(name))
             {
-                Category obj = new Category
-                {
-                    Name = name,
-                    Description = description
-                };
+                obj.CategoryId = id;
+                obj.Name = prevName;
+                obj.Description = description;
 
                 return data.Update(obj);
+            }
+            else
+            {
+                string exists = DCategory.Exists(name);
+
+                if (exists.Equals("1"))
+                    return "Category does exists.";
+                else
+                {
+                    obj.CategoryId = id;
+                    obj.Name = name;
+                    obj.Description = description;
+
+                    return data.Update(obj);
+                }
             }
         }
 

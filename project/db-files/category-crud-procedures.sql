@@ -43,6 +43,7 @@ GO;
 CREATE PROC deactivate_category
 @id INT AS
 UPDATE category SET c_state = 0
+WHERE category_id = @id
 GO;
 
 --Exists category procedure

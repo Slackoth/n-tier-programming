@@ -32,12 +32,17 @@ namespace View
             this.components = new System.ComponentModel.Container();
             this.tcGeneral = new System.Windows.Forms.TabControl();
             this.tpList = new System.Windows.Forms.TabPage();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnDeactivate = new System.Windows.Forms.Button();
+            this.btnActivate = new System.Windows.Forms.Button();
+            this.chkSelect = new System.Windows.Forms.CheckBox();
             this.bttSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.lblTotal = new System.Windows.Forms.Label();
             this.dgvList = new System.Windows.Forms.DataGridView();
             this.dgvcbcSelect = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tpManagement = new System.Windows.Forms.TabPage();
+            this.bttUpdate = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnInsert = new System.Windows.Forms.Button();
             this.lblObligatory = new System.Windows.Forms.Label();
@@ -61,11 +66,15 @@ namespace View
             this.tcGeneral.Location = new System.Drawing.Point(13, 13);
             this.tcGeneral.Name = "tcGeneral";
             this.tcGeneral.SelectedIndex = 0;
-            this.tcGeneral.Size = new System.Drawing.Size(775, 425);
+            this.tcGeneral.Size = new System.Drawing.Size(1042, 421);
             this.tcGeneral.TabIndex = 0;
             // 
             // tpList
             // 
+            this.tpList.Controls.Add(this.btnDelete);
+            this.tpList.Controls.Add(this.btnDeactivate);
+            this.tpList.Controls.Add(this.btnActivate);
+            this.tpList.Controls.Add(this.chkSelect);
             this.tpList.Controls.Add(this.bttSearch);
             this.tpList.Controls.Add(this.txtSearch);
             this.tpList.Controls.Add(this.lblTotal);
@@ -73,10 +82,51 @@ namespace View
             this.tpList.Location = new System.Drawing.Point(4, 29);
             this.tpList.Name = "tpList";
             this.tpList.Padding = new System.Windows.Forms.Padding(3);
-            this.tpList.Size = new System.Drawing.Size(767, 392);
+            this.tpList.Size = new System.Drawing.Size(1034, 388);
             this.tpList.TabIndex = 0;
             this.tpList.Text = "List";
             this.tpList.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(281, 353);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(94, 29);
+            this.btnDelete.TabIndex = 7;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnDeactivate
+            // 
+            this.btnDeactivate.Location = new System.Drawing.Point(181, 353);
+            this.btnDeactivate.Name = "btnDeactivate";
+            this.btnDeactivate.Size = new System.Drawing.Size(94, 29);
+            this.btnDeactivate.TabIndex = 6;
+            this.btnDeactivate.Text = "Deactivate";
+            this.btnDeactivate.UseVisualStyleBackColor = true;
+            this.btnDeactivate.Click += new System.EventHandler(this.btnDeactivate_Click);
+            // 
+            // btnActivate
+            // 
+            this.btnActivate.Location = new System.Drawing.Point(81, 353);
+            this.btnActivate.Name = "btnActivate";
+            this.btnActivate.Size = new System.Drawing.Size(94, 29);
+            this.btnActivate.TabIndex = 5;
+            this.btnActivate.Text = "Activate";
+            this.btnActivate.UseVisualStyleBackColor = true;
+            this.btnActivate.Click += new System.EventHandler(this.btnActivate_Click);
+            // 
+            // chkSelect
+            // 
+            this.chkSelect.AutoSize = true;
+            this.chkSelect.Location = new System.Drawing.Point(4, 356);
+            this.chkSelect.Name = "chkSelect";
+            this.chkSelect.Size = new System.Drawing.Size(71, 24);
+            this.chkSelect.TabIndex = 4;
+            this.chkSelect.Text = "Select";
+            this.chkSelect.UseVisualStyleBackColor = true;
+            this.chkSelect.CheckedChanged += new System.EventHandler(this.chkSelect_CheckedChanged);
             // 
             // bttSearch
             // 
@@ -98,7 +148,7 @@ namespace View
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
-            this.lblTotal.Location = new System.Drawing.Point(3, 372);
+            this.lblTotal.Location = new System.Drawing.Point(381, 357);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(45, 20);
             this.lblTotal.TabIndex = 1;
@@ -117,12 +167,15 @@ namespace View
             this.dgvList.ReadOnly = true;
             this.dgvList.RowHeadersWidth = 51;
             this.dgvList.RowTemplate.Height = 29;
-            this.dgvList.Size = new System.Drawing.Size(758, 331);
+            this.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvList.Size = new System.Drawing.Size(1028, 308);
             this.dgvList.TabIndex = 0;
+            this.dgvList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellContentClick);
+            this.dgvList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellDoubleClick);
             // 
             // dgvcbcSelect
             // 
-            this.dgvcbcSelect.HeaderText = "Select";
+            this.dgvcbcSelect.HeaderText = "Seleccionar";
             this.dgvcbcSelect.MinimumWidth = 6;
             this.dgvcbcSelect.Name = "dgvcbcSelect";
             this.dgvcbcSelect.ReadOnly = true;
@@ -130,6 +183,7 @@ namespace View
             // 
             // tpManagement
             // 
+            this.tpManagement.Controls.Add(this.bttUpdate);
             this.tpManagement.Controls.Add(this.btnCancel);
             this.tpManagement.Controls.Add(this.btnInsert);
             this.tpManagement.Controls.Add(this.lblObligatory);
@@ -141,10 +195,20 @@ namespace View
             this.tpManagement.Location = new System.Drawing.Point(4, 29);
             this.tpManagement.Name = "tpManagement";
             this.tpManagement.Padding = new System.Windows.Forms.Padding(3);
-            this.tpManagement.Size = new System.Drawing.Size(767, 392);
+            this.tpManagement.Size = new System.Drawing.Size(767, 388);
             this.tpManagement.TabIndex = 1;
             this.tpManagement.Text = "Management";
             this.tpManagement.UseVisualStyleBackColor = true;
+            // 
+            // bttUpdate
+            // 
+            this.bttUpdate.Location = new System.Drawing.Point(94, 252);
+            this.bttUpdate.Name = "bttUpdate";
+            this.bttUpdate.Size = new System.Drawing.Size(123, 35);
+            this.bttUpdate.TabIndex = 8;
+            this.bttUpdate.Text = "Update";
+            this.bttUpdate.UseVisualStyleBackColor = true;
+            this.bttUpdate.Click += new System.EventHandler(this.bttUpdate_Click);
             // 
             // btnCancel
             // 
@@ -224,7 +288,7 @@ namespace View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 441);
             this.Controls.Add(this.tcGeneral);
             this.Name = "FrmCategory";
             this.Text = "Category";
@@ -246,7 +310,6 @@ namespace View
         private System.Windows.Forms.TabPage tpList;
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.DataGridView dgvList;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dgvcbcSelect;
         private System.Windows.Forms.TabPage tpManagement;
         private System.Windows.Forms.Button bttSearch;
         private System.Windows.Forms.TextBox txtSearch;
@@ -259,5 +322,11 @@ namespace View
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.ErrorProvider iconError;
+        private System.Windows.Forms.Button bttUpdate;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnDeactivate;
+        private System.Windows.Forms.Button btnActivate;
+        private System.Windows.Forms.CheckBox chkSelect;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dgvcbcSelect;
     }
 }

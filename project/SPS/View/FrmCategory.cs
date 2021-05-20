@@ -13,6 +13,7 @@ namespace View
 {
     public partial class FrmCategory : Form
     {
+        private string prevName;
         public FrmCategory()
         {
             InitializeComponent();
@@ -30,6 +31,7 @@ namespace View
                 dgvList.DataSource = BCategory.List();
                 
                 DgvFormat();
+                Clear();
 
                 lblTotal.Text = "Total records: " + Convert.ToString(dgvList.Rows.Count);
             }
@@ -45,7 +47,7 @@ namespace View
             dgvList.Columns[1].Visible = false;
             dgvList.Columns[2].Width = 150;
             dgvList.Columns[3].Width = 400;
-            dgvList.Columns[3].HeaderText = "Description";
+            dgvList.Columns[3].HeaderText = "Descripcion";
             dgvList.Columns[4].Width = 100;
         }
 
@@ -76,8 +78,15 @@ namespace View
             txtName.Clear();
             txtId.Clear();
             txtDescription.Clear();
-            btnInsert.Visible = true;
             iconError.Clear();
+
+            btnInsert.Visible = true;
+            bttUpdate.Visible = false;
+            dgvList.Columns[0].Visible = false;
+            btnActivate.Visible = false;
+            btnDeactivate.Visible = false;
+            btnDelete.Visible = false;
+            chkSelect.Checked = false;
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
@@ -127,6 +136,202 @@ namespace View
         {
             Clear();
             tcGeneral.SelectedIndex = 0;
+        }
+
+        private void dgvList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                Clear();
+                bttUpdate.Visible = true;
+                btnInsert.Visible = false;
+                txtId.Text = Convert.ToString(dgvList.CurrentRow.Cells["ID"].Value);
+                prevName = Convert.ToString(dgvList.CurrentRow.Cells["Nombre"].Value);
+                txtName.Text = Convert.ToString(dgvList.CurrentRow.Cells["Nombre"].Value);
+                txtDescription.Text = Convert.ToString(dgvList.CurrentRow.Cells["Descripcion"].Value);
+                tcGeneral.SelectedIndex = 1;
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Select from the name cell.");
+            }
+        }
+
+        private void bttUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string response = "";
+
+                if (txtName.Text == string.Empty || txtId.Text == string.Empty)
+                {
+                    ErrorMessage("Some fields have been left empty.");
+                    iconError.SetError(txtName, "Enter a name");
+                }
+                else
+                {
+                    response = BCategory.Update(Convert.ToInt32(txtId.Text), prevName, 
+                        txtName.Text.Trim(), txtDescription.Text);
+
+                    if(response.Equals("Ok"))
+                    {
+                        OkMessage("Category updated!");
+                        Clear();
+                        List();
+                    }
+                    else
+                    {
+                        ErrorMessage(response);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace);
+            }
+        }
+
+        private void chkSelect_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkSelect.Checked)
+            {
+                dgvList.Columns[0].Visible = true;
+                btnActivate.Visible = true;
+                btnDeactivate.Visible = true;
+                btnDelete.Visible = true;
+            }
+            else
+            {
+                dgvList.Columns[0].Visible = false;
+                btnActivate.Visible = false;
+                btnDeactivate.Visible = false;
+                btnDelete.Visible = false;
+            }
+        }
+
+        private void dgvList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == dgvList.Columns["dgvcbcSelect"].Index)
+            {
+                DataGridViewCheckBoxCell chkDelete =
+                    (DataGridViewCheckBoxCell)dgvList.Rows[e.RowIndex].Cells["dgvcbcSelect"];
+                chkDelete.Value = !Convert.ToBoolean(chkDelete.Value);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult option = MessageBox.Show("Would you like to delete the record(s)?", "Sales system",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if(option == DialogResult.OK)
+                {
+                    int code = 0; string response = "";
+
+                    foreach (DataGridViewRow row in dgvList.Rows)
+                    {
+                        if(Convert.ToBoolean(row.Cells[0].Value))
+                        {
+                            code = Convert.ToInt32(row.Cells[1].Value);
+                            response = BCategory.Delete(code);
+
+                            if(response.Equals("Ok"))
+                            {
+                                OkMessage("File(s) deleted: " + Convert.ToString(row.Cells[2].Value));
+                            }
+                            else
+                            {
+                                ErrorMessage(response);
+                            }
+                        }
+                    }
+
+                    List();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace);
+            }
+        }
+
+        private void btnActivate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult option = MessageBox.Show("Would you like to activate the record(s)?", "Sales system",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if (option == DialogResult.OK)
+                {
+                    int code = 0; string response = "";
+
+                    foreach (DataGridViewRow row in dgvList.Rows)
+                    {
+                        if (Convert.ToBoolean(row.Cells[0].Value))
+                        {
+                            code = Convert.ToInt32(row.Cells[1].Value);
+                            response = BCategory.Activate(code);
+
+                            if (response.Equals("Ok"))
+                            {
+                                OkMessage("File(s) activated: " + Convert.ToString(row.Cells[2].Value));
+                            }
+                            else
+                            {
+                                ErrorMessage(response);
+                            }
+                        }
+                    }
+
+                    List();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace);
+            }
+        }
+
+        private void btnDeactivate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult option = MessageBox.Show("Would you like to deactivate the record(s)?", "Sales system",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if (option == DialogResult.OK)
+                {
+                    int code = 0; string response = "";
+
+                    foreach (DataGridViewRow row in dgvList.Rows)
+                    {
+                        if (Convert.ToBoolean(row.Cells[0].Value))
+                        {
+                            code = Convert.ToInt32(row.Cells[1].Value);
+                            response = BCategory.Deactivate(code);
+
+                            if (response.Equals("Ok"))
+                            {
+                                OkMessage("File(s) deactivated: " + Convert.ToString(row.Cells[2].Value));
+                            }
+                            else
+                            {
+                                ErrorMessage(response);
+                            }
+                        }
+                    }
+
+                    List();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + ex.StackTrace);
+            }
         }
     }
 }
