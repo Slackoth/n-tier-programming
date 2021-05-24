@@ -16,6 +16,9 @@ CREATE TABLE person(
 	FOREIGN KEY (id_role) REFERENCES person_role(id)
 );
 
+--Visual Studio tiraba una excepción "A potentially dangerous 
+--Request.Path value was detected from the client" por tener como PRIMARY KEY el campo
+--de nombre
 CREATE TABLE movie(
 	id INT PRIMARY KEY IDENTITY,
 	movie_name VARCHAR(250),
@@ -35,8 +38,3 @@ CREATE TABLE premier_access(
 	FOREIGN KEY (movie_id) REFERENCES movie(id),
 	FOREIGN KEY (person_id) REFERENCES person(id),
 );
-
-DROP TABLE person;
-DROP TABLE premier_access;
-DROP TABLE person_role;
-DROP TABLE movie;
