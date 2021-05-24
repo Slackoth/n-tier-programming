@@ -1,0 +1,58 @@
+﻿@model premier_access_app.Models.person
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>person</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.person_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.person_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.person_lastname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.person_lastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.person_role.role_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.person_role.role_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

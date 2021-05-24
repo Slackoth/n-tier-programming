@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="theaterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="movie">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="movie_name" Type="varchar" MaxLength="250" />
+          <Property Name="movie_date" Type="datetime" Nullable="false" />
+          <Property Name="duration" Type="time" Precision="7" Nullable="false" />
+          <Property Name="category" Type="varchar" MaxLength="250" />
+          <Property Name="studio" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="director" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="genre" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="person_name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="person_lastname" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="age" Type="int" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="id_role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="person_role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="role_description" Type="varchar" MaxLength="255" />
+          <Property Name="role_state" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="premier_access">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="movie_id" Type="int" Nullable="false" />
+          <Property Name="person_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__person__id_role__32E0915F">
+          <End Role="person_role" Type="Self.person_role" Multiplicity="1" />
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person_role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__premier_a__movie__37A5467C">
+          <End Role="movie" Type="Self.movie" Multiplicity="1" />
+          <End Role="premier_access" Type="Self.premier_access" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movie">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="premier_access">
+              <PropertyRef Name="movie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__premier_a__perso__38996AB5">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="premier_access" Type="Self.premier_access" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="premier_access">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="theaterModelStoreContainer">
+          <EntitySet Name="movie" EntityType="Self.movie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="person" EntityType="Self.person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="person_role" EntityType="Self.person_role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="premier_access" EntityType="Self.premier_access" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__person__id_role__32E0915F" Association="Self.FK__person__id_role__32E0915F">
+            <End Role="person_role" EntitySet="person_role" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
+          <AssociationSet Name="FK__premier_a__movie__37A5467C" Association="Self.FK__premier_a__movie__37A5467C">
+            <End Role="movie" EntitySet="movie" />
+            <End Role="premier_access" EntitySet="premier_access" />
+          </AssociationSet>
+          <AssociationSet Name="FK__premier_a__perso__38996AB5" Association="Self.FK__premier_a__perso__38996AB5">
+            <End Role="person" EntitySet="person" />
+            <End Role="premier_access" EntitySet="premier_access" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="theaterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="movie">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="movie_name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="movie_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="duration" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="category" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="studio" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="director" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="genre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="premier_access" Relationship="Self.FK__premier_a__movie__37A5467C" FromRole="movie" ToRole="premier_access" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="person_name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="person_lastname" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="person_role" Relationship="Self.FK__person__id_role__32E0915F" FromRole="person" ToRole="person_role" />
+          <NavigationProperty Name="premier_access" Relationship="Self.FK__premier_a__perso__38996AB5" FromRole="person" ToRole="premier_access" />
+        </EntityType>
+        <EntityType Name="person_role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role_description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="role_state" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="people" Relationship="Self.FK__person__id_role__32E0915F" FromRole="person_role" ToRole="person" />
+        </EntityType>
+        <EntityType Name="premier_access">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="movie_id" Type="Int32" Nullable="false" />
+          <Property Name="person_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="movie" Relationship="Self.FK__premier_a__movie__37A5467C" FromRole="premier_access" ToRole="movie" />
+          <NavigationProperty Name="person" Relationship="Self.FK__premier_a__perso__38996AB5" FromRole="premier_access" ToRole="person" />
+        </EntityType>
+        <Association Name="FK__premier_a__movie__37A5467C">
+          <End Role="movie" Type="Self.movie" Multiplicity="1" />
+          <End Role="premier_access" Type="Self.premier_access" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movie">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="premier_access">
+              <PropertyRef Name="movie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__person__id_role__32E0915F">
+          <End Role="person_role" Type="Self.person_role" Multiplicity="1" />
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person_role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__premier_a__perso__38996AB5">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="premier_access" Type="Self.premier_access" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="premier_access">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="theaterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="movies" EntityType="Self.movie" />
+          <EntitySet Name="people" EntityType="Self.person" />
+          <EntitySet Name="person_role" EntityType="Self.person_role" />
+          <EntitySet Name="premier_access" EntityType="Self.premier_access" />
+          <AssociationSet Name="FK__premier_a__movie__37A5467C" Association="Self.FK__premier_a__movie__37A5467C">
+            <End Role="movie" EntitySet="movies" />
+            <End Role="premier_access" EntitySet="premier_access" />
+          </AssociationSet>
+          <AssociationSet Name="FK__person__id_role__32E0915F" Association="Self.FK__person__id_role__32E0915F">
+            <End Role="person_role" EntitySet="person_role" />
+            <End Role="person" EntitySet="people" />
+          </AssociationSet>
+          <AssociationSet Name="FK__premier_a__perso__38996AB5" Association="Self.FK__premier_a__perso__38996AB5">
+            <End Role="person" EntitySet="people" />
+            <End Role="premier_access" EntitySet="premier_access" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="theaterModelStoreContainer" CdmEntityContainer="theaterEntities">
+          <EntitySetMapping Name="movies">
+            <EntityTypeMapping TypeName="theaterModel.movie">
+              <MappingFragment StoreEntitySet="movie">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="movie_name" ColumnName="movie_name" />
+                <ScalarProperty Name="movie_date" ColumnName="movie_date" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="studio" ColumnName="studio" />
+                <ScalarProperty Name="director" ColumnName="director" />
+                <ScalarProperty Name="genre" ColumnName="genre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="people">
+            <EntityTypeMapping TypeName="theaterModel.person">
+              <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="person_name" ColumnName="person_name" />
+                <ScalarProperty Name="person_lastname" ColumnName="person_lastname" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="id_role" ColumnName="id_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="person_role">
+            <EntityTypeMapping TypeName="theaterModel.person_role">
+              <MappingFragment StoreEntitySet="person_role">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="role_description" ColumnName="role_description" />
+                <ScalarProperty Name="role_state" ColumnName="role_state" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="premier_access">
+            <EntityTypeMapping TypeName="theaterModel.premier_access">
+              <MappingFragment StoreEntitySet="premier_access">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="movie_id" ColumnName="movie_id" />
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
